@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { format, parseISO } from "date-fns";
 import { enUS } from "date-fns/locale";
 import { auth } from "@clerk/nextjs/server";

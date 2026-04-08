@@ -20,6 +20,7 @@ interface DatePickerClientProps {
 export default function DatePickerClient({ selectedDate }: DatePickerClientProps) {
   const router = useRouter();
   const [date, setDate] = useState<Date>(selectedDate);
+  const [open, setOpen] = useState(false);
   const formattedDate = format(date, "do MMM yyyy", { locale: enUS });
 
   const handleDateSelect = (newDate: Date | undefined) => {
@@ -29,12 +30,13 @@ export default function DatePickerClient({ selectedDate }: DatePickerClientProps
       const month = String(newDate.getMonth() + 1).padStart(2, "0");
       const day = String(newDate.getDate()).padStart(2, "0");
       const dateStr = `${year}-${month}-${day}`;
+      setOpen(false);
       router.push(`/dashboard?date=${dateStr}`);
     }
   };
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" className="gap-2">
           <CalendarIcon className="w-4 h-4" />
