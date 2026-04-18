@@ -54,60 +54,71 @@ export default async function Dashboard({
         <DatePickerClient selectedDate={selectedDate} />
       </div>
 
-      <div className="grid gap-4 max-w-4xl">
+      <div className="grid gap-6 max-w-4xl">
         {workouts.length > 0 ? (
           workouts.map((workout) => (
-            <div key={workout.id}>
-              {workout.exercises.map((item) => (
-                <Card
-                  key={item.workoutExercise.id}
-                  className="bg-white dark:bg-zinc-950 mb-4"
-                >
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="flex items-center gap-2">
-                        <Dumbbell className="w-5 h-5" />
-                        {item.exercise.name}
-                      </CardTitle>
-                      <span className="text-sm text-zinc-500 dark:text-zinc-400">
-                        {item.sets.length} sets
-                      </span>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-2">
-                      {item.sets.map((set) => (
-                        <div
-                          key={set.id}
-                          className="flex items-center gap-6 pb-2"
-                        >
-                          <div className="flex-1">
-                            <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                              Set {set.setNumber}
-                            </p>
-                            {set.reps && (
-                              <p className="text-lg font-semibold">
-                                {set.reps} reps
-                              </p>
-                            )}
-                          </div>
-                          {set.weightLbs && (
-                            <div className="flex-1">
-                              <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                                Weight
-                              </p>
-                              <p className="text-lg font-semibold">
-                                {set.weightLbs} lbs
-                              </p>
-                            </div>
-                          )}
+            <Card key={workout.id} className="bg-white dark:bg-zinc-950">
+              <CardHeader className="pb-3">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center gap-2">
+                    <Dumbbell className="w-5 h-5" />
+                    {workout.name}
+                  </CardTitle>
+                  <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                    {format(new Date(workout.startedAt), "h:mm a")}
+                  </span>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {workout.exercises.length > 0 ? (
+                  <div className="space-y-4">
+                    {workout.exercises.map((item) => (
+                      <div key={item.workoutExercise.id}>
+                        <div className="flex items-center justify-between mb-2">
+                          <p className="font-medium">{item.exercise.name}</p>
+                          <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                            {item.sets.length} sets
+                          </span>
                         </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                        <div className="space-y-2">
+                          {item.sets.map((set) => (
+                            <div
+                              key={set.id}
+                              className="flex items-center gap-6 pb-2"
+                            >
+                              <div className="flex-1">
+                                <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                                  Set {set.setNumber}
+                                </p>
+                                {set.reps && (
+                                  <p className="text-lg font-semibold">
+                                    {set.reps} reps
+                                  </p>
+                                )}
+                              </div>
+                              {set.weightLbs && (
+                                <div className="flex-1">
+                                  <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                                    Weight
+                                  </p>
+                                  <p className="text-lg font-semibold">
+                                    {set.weightLbs} lbs
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                    No exercises logged yet.
+                  </p>
+                )}
+              </CardContent>
+            </Card>
           ))
         ) : (
           <div className="flex flex-col items-center gap-4">

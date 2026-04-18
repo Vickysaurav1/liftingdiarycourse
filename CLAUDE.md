@@ -31,6 +31,8 @@ Before generating any code:
 Current documentation:
 - `/docs/ui.md` — UI component standards and date formatting requirements
 - `/docs/data-fetching.md` — Data fetching requirements, Drizzle ORM usage, and critical user data isolation rules
+- `/docs/auth.md` — Authentication standards; this app uses Clerk for all auth
+- `/docs/data-mutations.md` — Data mutation standards; server actions, Zod validation, and `/src/data/` helper requirements
 
 ## Architecture
 

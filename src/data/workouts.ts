@@ -33,6 +33,12 @@ export async function getUserWorkoutsByDate(userId: string, date: string) {
         .leftJoin(sets, eq(sets.workoutExerciseId, workoutExercises.id))
         .where(eq(workoutExercises.workoutId, workout.id));
 
+      type GroupedExercise = {
+        workoutExercise: (typeof exercisesData)[number]['workoutExercise'];
+        exercise: (typeof exercisesData)[number]['exercise'];
+        sets: NonNullable<(typeof exercisesData)[number]['sets']>[];
+      };
+
       // Group sets by workout exercise
       const groupedExercises = exercisesData.reduce(
         (acc, item) => {
@@ -55,7 +61,7 @@ export async function getUserWorkoutsByDate(userId: string, date: string) {
 
           return acc;
         },
-        [] as typeof exercisesData
+        [] as GroupedExercise[]
       );
 
       return {
@@ -66,6 +72,28 @@ export async function getUserWorkoutsByDate(userId: string, date: string) {
   );
 
   return workoutsWithDetails;
+}
+
+/**
+ * Creates a new workout for a user.
+ *
+ * @param userId - The ID of the user (from Clerk)
+ * @param date - The workout date (ISO date string: YYYY-MM-DD)
+ * @param startedAt - The time the workout started
+ * @returns The created workout
+ */
+export async function createWorkout(
+  userId: string,
+  name: string,
+  date: string,
+  startedAt: Date
+) {
+  const [workout] = await db
+    .insert(workouts)
+    .values({ userId, name, date, startedAt })
+    .returning();
+
+  return workout;
 }
 
 /**
