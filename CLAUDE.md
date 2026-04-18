@@ -33,6 +33,7 @@ Current documentation:
 - `/docs/data-fetching.md` — Data fetching requirements, Drizzle ORM usage, and critical user data isolation rules
 - `/docs/auth.md` — Authentication standards; this app uses Clerk for all auth
 - `/docs/data-mutations.md` — Data mutation standards; server actions, Zod validation, and `/src/data/` helper requirements
+- `/docs/server-components.md` — Server component standards; params/searchParams must be awaited (Next.js 15)
 
 ## Architecture
 

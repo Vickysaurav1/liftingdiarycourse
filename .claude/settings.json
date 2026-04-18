@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /Users/sauravkumar/liftingdiarycourse/.claude/hooks/update-docs-index.py 2>/dev/null || true",
+            "statusMessage": "Updating CLAUDE.md docs index..."
+          }
+        ]
+      }
+    ]
+  }
+}

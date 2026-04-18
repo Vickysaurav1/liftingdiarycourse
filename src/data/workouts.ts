@@ -96,6 +96,22 @@ export async function createWorkout(
   return workout;
 }
 
+export async function updateWorkout(
+  workoutId: string,
+  userId: string,
+  name: string,
+  date: string,
+  startedAt: Date
+) {
+  const [workout] = await db
+    .update(workouts)
+    .set({ name, date, startedAt })
+    .where(and(eq(workouts.id, workoutId), eq(workouts.userId, userId)))
+    .returning();
+
+  return workout;
+}
+
 /**
  * Fetches a specific workout by ID, verifying user ownership.
  *
