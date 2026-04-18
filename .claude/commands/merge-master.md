@@ -12,4 +12,7 @@ Steps:
 7. Run `git merge origin/master` to merge
 8. If there are merge conflicts, read each conflicted file, understand both sides of the conflict, and resolve them — prefer the current branch's intent but incorporate necessary changes from master
 9. After resolving all conflicts, stage the resolved files and complete the merge with `git commit`
-10. Report what was committed and summarize any conflicts that were resolved
+10. Note the current feature branch name, then switch to master: `git checkout master`
+11. Pull latest master: `git pull origin master`
+12. Delete the feature branch locally: `git branch -d <feature-branch>`
+13. Report what was committed, any conflicts resolved, and confirm the user is now on master with the feature branch cleaned up
